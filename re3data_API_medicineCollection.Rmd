@@ -31,6 +31,9 @@ library(rlist)
 
 ```{r }
 re3data_query <- list("subjects[]" = "205 Medicine","pidSystems[]"="DOI","dataUploads[]"="open") #give a filter, for further filter please check the documentation API: https://www.re3data.org/api/doc
+#incase if you don't know what is the exact subject name, please check following links 
+#view-source:https://www.re3data.org/browse/by-subject/ 
+#https://www.dfg.de/en/dfg_profile/statutory_bodies/review_boards/subject_areas/index.jsp
 re3data_request <- GET("https://www.re3data.org/api/beta/repositories?", query = re3data_query) 
 re3data_xml <- read_xml(re3data_request) 
 URLs<- xml_text(xml_find_all(re3data_xml, xpath = "//@href"))
@@ -57,7 +60,8 @@ extract_info <- function(url) {
     
     repositoryUrl = xml_text(xml_find_all(repository_metadata_XML, "//r3d:repositoryURL")),
   
-  institutionCountry = paste(unique(xml_text(xml_find_all(repository_metadata_XML, "//r3d:institutionCountry"))),collapse="|"),#repositories:institutionCountry,1:many relationship, for further details regarding re3data metadata schema, please check https://gfzpublic.gfz-potsdam.de/pubman/faces/ViewItemOverviewPage.jsp?itemId=item_1397899
+  institutionCountry = paste(unique(xml_text(xml_find_all(repository_metadata_XML, "//r3d:institutionCountry"))),collapse="|"),#repositories:institutionCountry,1:many relationship
+#for further details regarding re3data metadata schema, please check https://gfzpublic.gfz-potsdam.de/pubman/faces/ViewItemOverviewPage.jsp?itemId=item_1397899
   
   description= xml_text(xml_find_all(repository_metadata_XML, "//r3d:description"))
   )
@@ -76,7 +80,7 @@ for (url in URLs) {
 
 **Result**
 
-Here is a short view of the table of repositories which allow update data and provid DOI for discipline medicine. 
+Here is a short view of the table of repositories which allow update data and provide DOI for discipline medicine. 
 
 ```{r}
 head(repository_info)

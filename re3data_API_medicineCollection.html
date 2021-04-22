@@ -210,6 +210,9 @@ library(xml2)
 library(rlist)</code></pre>
 <p><strong>Step 2: Extract re3data IDs of all repositories which satisfied the filter</strong></p>
 <pre class="r"><code>re3data_query &lt;- list(&quot;subjects[]&quot; = &quot;205 Medicine&quot;,&quot;pidSystems[]&quot;=&quot;DOI&quot;,&quot;dataUploads[]&quot;=&quot;open&quot;) #give a filter, for further filter please check the documentation API: https://www.re3data.org/api/doc
+#incase if you don&#39;t know what is the exact subject name, please check following links 
+#view-source:https://www.re3data.org/browse/by-subject/ 
+#https://www.dfg.de/en/dfg_profile/statutory_bodies/review_boards/subject_areas/index.jsp
 re3data_request &lt;- GET(&quot;https://www.re3data.org/api/beta/repositories?&quot;, query = re3data_query) 
 re3data_xml &lt;- read_xml(re3data_request) 
 URLs&lt;- xml_text(xml_find_all(re3data_xml, xpath = &quot;//@href&quot;))</code></pre>
@@ -226,7 +229,8 @@ colnames(repository_info) &lt;- c(&quot;re3data_ID&quot;, &quot;repositoryName&q
     
     repositoryUrl = xml_text(xml_find_all(repository_metadata_XML, &quot;//r3d:repositoryURL&quot;)),
   
-  institutionCountry = paste(unique(xml_text(xml_find_all(repository_metadata_XML, &quot;//r3d:institutionCountry&quot;))),collapse=&quot;|&quot;),#repositories:institutionCountry,1:many relationship, for further details regarding re3data metadata schema, please check https://gfzpublic.gfz-potsdam.de/pubman/faces/ViewItemOverviewPage.jsp?itemId=item_1397899
+  institutionCountry = paste(unique(xml_text(xml_find_all(repository_metadata_XML, &quot;//r3d:institutionCountry&quot;))),collapse=&quot;|&quot;),#repositories:institutionCountry,1:many relationship
+#for further details regarding re3data metadata schema, please check https://gfzpublic.gfz-potsdam.de/pubman/faces/ViewItemOverviewPage.jsp?itemId=item_1397899
   
   description= xml_text(xml_find_all(repository_metadata_XML, &quot;//r3d:description&quot;))
   )
@@ -239,7 +243,7 @@ colnames(repository_info) &lt;- c(&quot;re3data_ID&quot;, &quot;repositoryName&q
   repository_info &lt;- rbind(repository_info, results_list)
 }</code></pre>
 <p><strong>Result</strong></p>
-<p>Here is a short view of the table of repositories which allow update data and provid DOI for discipline medicine.</p>
+<p>Here is a short view of the table of repositories which allow update data and provide DOI for discipline medicine.</p>
 <pre class="r"><code>head(repository_info)</code></pre>
 <pre><code>##     re3data_ID                                repositoryName
 ## 1 r3d100012823                                         Vivli
