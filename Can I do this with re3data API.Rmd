@@ -1,0 +1,40 @@
+---
+title: "Can I do this with re3data API?"
+author: "Dorothea Strecker, Yi Wang"
+date: "22 4 2021"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## setUp 
+### load Packages 
+
+
+```{r load-packages, message = TRUE}
+installed.packages("tidyverse")
+installed.packages("htttr")
+installed.packages("xml2")
+
+
+
+library(tidyverse)
+library(httr)
+library(xml2)
+
+
+```
+## extract re3data ID 
+
+```{r }
+re3data_request <-GET("http://re3data.org/api/v1/repositories")
+re3data_xml <- read_xml(re3data_request)
+re3data_IDs <- xml_text(xml_find_all(re3data_xml, xpath ="//id"))
+
+```
+
+
