@@ -10,7 +10,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 * * *
-### Question 1: For the subject medicine community, could we gather a list of repositories with detailed and updated information, where repositories provide DOI meanwhile allow our scientists to upload their own data? 
+### For the subject medicine community, could we gather a list of repositories with detailed and updated information, where repositories provide DOI meanwhile allow our scientists to upload their own data? 
 
 
 * * *
