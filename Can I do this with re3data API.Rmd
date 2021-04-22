@@ -10,31 +10,59 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+### Can I do this with re3data API 
+Example question: Can I get a list of Research data repositories regarding "COVID-19"? 
+
+### helpful links 
+
+(API documentation)https://www.re3data.org/api/doc
+(Schema Definition)http://schema.re3data.org/3-0/re3dataV3-0.xsd
+(Schema Documentation)https://gfzpublic.gfz-potsdam.de/pubman/faces/ViewItemOverviewPage.jsp?itemId=item_1397899
 
 ## setUp 
 ### load Packages 
-
 
 ```{r load-packages, message = TRUE}
 installed.packages("tidyverse")
 installed.packages("htttr")
 installed.packages("xml2")
-
-
-
+installed.packages("rlist")
 library(tidyverse)
 library(httr)
 library(xml2)
-
+library(rlist)
 
 ```
-## extract re3data ID 
+
 
 ```{r }
-re3data_request <-GET("http://re3data.org/api/v1/repositories")
-re3data_xml <- read_xml(re3data_request)
-re3data_IDs <- xml_text(xml_find_all(re3data_xml, xpath ="//id"))
+re3data_query <- list("keywords[]" = "COVID-19") 
+re3data_request <- GET("https://www.re3data.org/api/beta/repositories?", query = re3data_query) 
+re3data_xml <- read_xml(re3data_request) 
+re3data_IDs <- xml_text(xml_find_all(re3data_xml, xpath = "//id"))
+
+URLs <- paste("https://www.re3data.org/api/v1/repository/",re3data_IDs, sep = "")
+
+extract_info <- function(url) {
+  list(
+    re3data_ID = xml_text(xml_find_all(repository_metadata_XML, "//r3d:re3data.orgIdentifier")),
+    
+    repositoryName = xml_text(xml_find_all(repository_metadata_XML, "//r3d:repositoryName")),
+    
+    repositoryUrl = xml_text(xml_find_all(repository_metadata_XML, "//r3d:repositoryURL"))
+  )
+}
+
+repository_info <- data.frame(matrix(ncol = 3, nrow = 0))
+
+colnames(repository_info) <- c("re3data_ID", "repositoryName", "repositoryUrl")
+
+for (url in URLs) {
+  repository_metadata_request <- GET(url)
+  repository_metadata_XML <-read_xml(repository_metadata_request) 
+  results_list <- extract_info(repository_metadata_XML) 
+  repository_info <- rbind(repository_info, results_list)
+}
+View(repository_info)
 
 ```
-
-
