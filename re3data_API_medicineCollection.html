@@ -200,22 +200,24 @@ summary {
 <h3>For the subject medicine community, could we gather a list of repositories with detailed and updated information, where repositories provide DOI meanwhile allow our scientists to upload their own data?</h3>
 <hr />
 <p><strong>Step 1: load Packages </strong></p>
-<pre class="r"><code>installed.packages(&quot;tidyverse&quot;)
-installed.packages(&quot;htttr&quot;)
+<pre class="r"><code>installed.packages(&quot;htttr&quot;)
 installed.packages(&quot;xml2&quot;)
-installed.packages(&quot;rlist&quot;)
-library(tidyverse)
-library(httr)
-library(xml2)
-library(rlist)</code></pre>
+library(httr)#we use httr:GET to retrieve url
+library(xml2)#we load library xml2 to work with xml file</code></pre>
 <p><strong>Step 2: Extract re3data IDs of all repositories which satisfied the filter</strong></p>
-<pre class="r"><code>re3data_query &lt;- list(&quot;subjects[]&quot; = &quot;205 Medicine&quot;,&quot;pidSystems[]&quot;=&quot;DOI&quot;,&quot;dataUploads[]&quot;=&quot;open&quot;) #give a filter, for further filter please check the documentation API: https://www.re3data.org/api/doc
-#incase if you don&#39;t know what is the exact subject name, please check following links 
+<pre class="r"><code>re3data_query &lt;- list(&quot;subjects[]&quot; = &quot;205 Medicine&quot;,&quot;pidSystems[]&quot;=&quot;DOI&quot;,&quot;dataUploads[]&quot;=&quot;open&quot;) #Query parameters need to be defined. Query parameters filter re3data metadata based on conditions you provide.
+
+#For further filter please check the documentation API: https://www.re3data.org/api/doc
+#Just in case if you don&#39;t know what is the exact the subject name you are looking for, please check following links 
 #view-source:https://www.re3data.org/browse/by-subject/ 
 #https://www.dfg.de/en/dfg_profile/statutory_bodies/review_boards/subject_areas/index.jsp
+
 re3data_request &lt;- GET(&quot;https://www.re3data.org/api/beta/repositories?&quot;, query = re3data_query) 
+#The query is then passed to the re3data API using httr::GET
+
 re3data_xml &lt;- read_xml(re3data_request) 
-URLs&lt;- xml_text(xml_find_all(re3data_xml, xpath = &quot;//@href&quot;))</code></pre>
+URLs&lt;- xml_text(xml_find_all(re3data_xml, xpath = &quot;//@href&quot;))
+#transform request into XML format, here we use xpath, extract all the URLs</code></pre>
 <p><strong>Step 3: Make a data frame and prepare for further detailed information</strong></p>
 <pre class="r"><code>repository_info &lt;- data.frame(matrix(ncol = 5, nrow = 0))
 
@@ -229,18 +231,20 @@ colnames(repository_info) &lt;- c(&quot;re3data_ID&quot;, &quot;repositoryName&q
     
     repositoryUrl = xml_text(xml_find_all(repository_metadata_XML, &quot;//r3d:repositoryURL&quot;)),
   
-  institutionCountry = paste(unique(xml_text(xml_find_all(repository_metadata_XML, &quot;//r3d:institutionCountry&quot;))),collapse=&quot;|&quot;),#repositories:institutionCountry,1:many relationship
-#for further details regarding re3data metadata schema, please check https://gfzpublic.gfz-potsdam.de/pubman/faces/ViewItemOverviewPage.jsp?itemId=item_1397899
+  institutionCountry = paste(unique(xml_text(xml_find_all(repository_metadata_XML, &quot;//r3d:institutionCountry&quot;))),collapse=&quot;|&quot;),#repositories:institutionCountry,1:many relationship, we here extract all unique institutionCountry values, and separate them with &quot;|&quot;. 
+  
+#For further details regarding re3data metadata schema, please check https://gfzpublic.gfz-potsdam.de/pubman/faces/ViewItemOverviewPage.jsp?itemId=item_1397899
   
   description= xml_text(xml_find_all(repository_metadata_XML, &quot;//r3d:description&quot;))
   )
 }</code></pre>
 <p><strong>Step 5: Gather detailed information </strong></p>
 <pre class="r"><code>for (url in URLs) {
-  repository_metadata_request &lt;- GET(url)
+  repository_metadata_request &lt;- GET(url)#query again with our collected URLs in step 2
   repository_metadata_XML &lt;-read_xml(repository_metadata_request) 
-  results_list &lt;- extract_info(repository_metadata_XML) 
-  repository_info &lt;- rbind(repository_info, results_list)
+  results_list &lt;- extract_info(repository_metadata_XML) #call function extract_info, we defined in step 4, then put them in a list. 
+  repository_info &lt;- rbind(repository_info, results_list)#combine results of each iterations into repository_info
+  
 }</code></pre>
 <p><strong>Result</strong></p>
 <p>Here is a short view of the table of repositories which allow update data and provide DOI for discipline medicine.</p>
