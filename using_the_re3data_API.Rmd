@@ -1,6 +1,6 @@
 ---
 title: "Using the re3data API"
-author: "Yi Wang, Dorothea Strecker"
+author: "Yi WANG, Dorothea Strecker"
 date: "4/22/2021"
 output: html_document
 ---
