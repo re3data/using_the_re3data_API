@@ -60,7 +60,7 @@ URLs <- xml_text(xml_find_all(read_xml(re3data_request), xpath = "//@href"))
 
 The function **extract_repository_info** defined in the following code block points to and extracts the content of specific XML elements and attributes.This function will be used later to extract the spedified information from responses of the re3data API. Its basic structure is similar to the process of extracting the URLs outlined in step 3 above.  
 The XPath expressions defined here will extract the re3data IDs, names, URLs, and descriptions of the repositories. Results are stored in a named list that can be processed later.  
-Depending on specific use cases, this function can be adapted to extract a different set of elements and attributes. For more an overview of the metadata re3data offers, please refer to the documentation of the [re3data Metadata Schema](https://doi.org/10.2312/re3.006) (the API uses version 2.2 of the re3data Metadata Schema).  
+Depending on specific use cases, this function can be adapted to extract a different set of elements and attributes. For an overview of the metadata re3data offers, please refer to the documentation of the [re3data Metadata Schema](https://doi.org/10.2312/re3.006) (the API uses version 2.2 of the re3data Metadata Schema).  
 The function **xml_structure** from the package **xml2** can be very useful for inspecting the structure of XML objects and specifying XPath expressions.  
 Please note that in version 2.2 of the re3data Metadata Schema, the elements mentioned here have occurences of 1 or 0-1, meaning that for each repository, they occur once at most. For information on how to deal with elements that can occur multiple times, please refer to other examples for using the re3data API.
 
