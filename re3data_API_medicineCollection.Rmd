@@ -9,15 +9,12 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-* * *
 ## Use case: identify and collect information about repositories catering to the medical research community
 
 Medical researchers are looking for a suitable repository to deposit their data. They require a repository catering to medical research that offers data upload and assigns DOIs to datasets.
 
 Repositories meeting these specifications can be identified via the re3data API. The API also provides the option to retrieve further information about these repositories, such as the name of the repository or a description.
 
-
-* * *
 ### Step 1: load packages
 
 The package **httr** includes the HTTP method GET, which will be used to request data from the re3data API. Responses from the redata API are returned in XML. **xml2** includes functions for working with XML, for example parsing or extracting content of specific elements. If necessary, install the packages before loading them.
