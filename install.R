@@ -1,0 +1,5 @@
+install.packages("httr")
+install.packages("xml2")
+install.packages("dplyr")
+install.packages("tidyr")
+install.packages("ggplot2")
