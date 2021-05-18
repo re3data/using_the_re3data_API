@@ -8,7 +8,7 @@ The examples are implemented in R using Jupyter Notebooks, which can be run in b
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/dorothearrr/using_the_re3data_API/HEAD)
 
 Currently, we provide notebooks for two use cases:
-* identify and collect information about repositories catering to the medical research community
-* distribution of certificates across repository types
+* **re3data_API_medical_research_community.ipynb** identify and collect information about repositories catering to the medical research community
+* **re3data_API_certification_by_type.ipynb** distribution of certificates across repository types
 
 The notebooks can be adapted to fit other use cases. If your specific use case is not covered here, feel free to [contact us](mailto:info@re3data.org).
