@@ -27,6 +27,7 @@ Currently, we provide notebooks for three example use cases:
 ### Contributors
 
 [Dorothea Strecker](https://orcid.org/0000-0002-9754-3807) (R implementation)
+
 [Yi Wang](https://orcid.org/0000-0003-1354-3461) (R implementation)
 
 ## Contact
