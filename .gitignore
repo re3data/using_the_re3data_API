@@ -1,4 +1,11 @@
+# R
 .Rproj.user
 .Rhistory
 .RData
 .Ruserdata
+
+# Python
+.venv
+
+# Jupyter notebook checkpoints
+.ipynb_checkpoints
