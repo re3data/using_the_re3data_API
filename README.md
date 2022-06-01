@@ -13,7 +13,7 @@ The example use cases are implemented in R and Python using Jupyter Notebooks, w
 
 ### Structure
 
-The examples are implemented in R and Python. The :
+Examples are implemented in R and Python. The repository is structured as follows:
 * **examples-r** - R implementation of the example use cases
 * **examples-python** - Python implementation of the example use cases
 
