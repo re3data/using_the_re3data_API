@@ -6,6 +6,7 @@
 
 # Python
 .venv
+__pycache__
 
 # Jupyter notebook checkpoints
 .ipynb_checkpoints

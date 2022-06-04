@@ -20,15 +20,17 @@ Examples are implemented in R and Python. The repository is structured as follow
 ### Example use cases
 
 Currently, we provide notebooks for three example use cases:
-* **re3data_API_medical_research_community.ipynb** - identify and collect information about repositories catering to the medical research community
-* **re3data_API_certification_by_type.ipynb** - distribution of certificates across repository types
-* **re3data_API_repository_APIs.ipynb** - collect information on repository APIs
+* **01_re3data_API_medical_research_community.ipynb** - identify and collect information about repositories catering to the medical research community
+* **02_re3data_API_certification_by_type.ipynb** - distribution of certificates across repository types
+* **03_re3data_API_repository_APIs.ipynb** - collect information on repository APIs
 
 ### Contributors
 
 [Dorothea Strecker](https://orcid.org/0000-0002-9754-3807) (R implementation)
 
 [Yi Wang](https://orcid.org/0000-0003-1354-3461) (R implementation)
+
+[Heinz-Alexander Fütterer](https://orcid.org/0000-0003-4397-027X) (Python implementation)
 
 ## Contact
 
