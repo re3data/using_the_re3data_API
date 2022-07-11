@@ -32,6 +32,8 @@ Currently, we provide notebooks for three example use cases:
 
 [Heinz-Alexander Fütterer](https://orcid.org/0000-0003-4397-027X) (Python implementation)
 
+[Binh Nguyen Thanh](https://orcid.org/0000-0001-5509-8357) (contributor)
+
 ## Contact
 
 If your specific use case is not covered here, feel free to [contact us](mailto:info@re3data.org).
